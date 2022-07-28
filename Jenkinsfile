@@ -38,6 +38,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+	    
+	    stage ('Code Quality') {
+        steps {
+            withSonarQubeEnv('My_SonarQube') {
+            sh 'mvn -f MyWebApp/pom.xml sonar:sonar'
+            }
+      }
+    }
 
 	    
 	stage ('Deploy') {
